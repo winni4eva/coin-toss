@@ -12,14 +12,20 @@ export class CoinsService {
   constructor(private _http: HttpClient) { }
 
   getRates(coin = 'BTC') {
-    const endpoint = this.coinUrl + `/v1/exchangerate/${coin}?invert=false`;
+    const endpoint = this.coinUrl + `/exchangerate/${coin}?invert=false`;
 
     return this._http.get(endpoint);
   }
 
   getAssets() {
-    const endpoint = this.coinUrl + `/v1/assets`;
+    const endpoint = this.coinUrl + `/assets`;
 
-    return this._http.get(endpoint)
+    return this._http.get(endpoint);
+  }
+
+  getAssetIcons(iconSize: number = 128) {
+    const endpoint = this.coinUrl + `/assets/icons/${iconSize}`;
+
+    return this._http.get(endpoint);
   }
 }

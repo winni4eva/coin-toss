@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  coinRestHost: 'https://rest-sandbox.coinapi.io',
-  coinWssHost: 'ws://ws-sandbox.coinapi.io/v1',
+  coinRestHost: 'https://rest-sandbox.coinapi.io/v1',
+  coinWssHost: 'wss://ws-sandbox.coinapi.io/v1',
   coinKey: 'F79CFF39-F765-4508-8D30-D998EFFAE554',
 };
 
