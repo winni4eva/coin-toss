@@ -23,7 +23,7 @@ export class CoinsService {
     return this._http.get(endpoint);
   }
 
-  getAssetIcons(iconSize: number = 128) {
+  getAssetIcons(iconSize: number = 64) {
     const endpoint = this.coinUrl + `/assets/icons/${iconSize}`;
 
     return this._http.get(endpoint);

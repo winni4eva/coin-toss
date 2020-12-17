@@ -9,10 +9,10 @@ export class AssetIconPipe implements PipeTransform {
 
   transform(assetId: string, ...args: unknown[]): unknown {
     const icons = JSON.parse(localStorage.getItem(this.COIN_ICONS)) || [];
+    const assetIcon = icons.filter(({asset_id}) => asset_id === assetId);
 
-    const assetIcon = icons.filter(({asset_id}) => assetId === assetId);
-    if (assetIcon) {
-      return assetIcon['url'];
+    if (Array.isArray(assetIcon) && assetIcon.length === 1) {
+      return assetIcon[0]['url'];
     }
     return null;
   }
