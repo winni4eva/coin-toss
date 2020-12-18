@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class CoinsService {
+export class AssetsService {
   
   private coinUrl = environment.coinRestHost; 
 

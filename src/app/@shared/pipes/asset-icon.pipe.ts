@@ -14,7 +14,7 @@ export class AssetIconPipe implements PipeTransform {
     if (Array.isArray(assetIcon) && assetIcon.length === 1) {
       return assetIcon[0]['url'];
     }
-    return null;
+    return '../../../assets/default.jpg';
   }
 
 }

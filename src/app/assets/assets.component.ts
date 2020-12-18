@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CoinsService } from './coins.service';
+import { AssetsService } from './assets.service';
 import { environment } from '../../environments/environment';
-import { SocketService } from '../shared/socket/socket.service';
+import { SocketService } from '../@shared/socket/socket.service';
 import { tap, map, catchError } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-coins',
-  templateUrl: './coins.component.html',
-  styleUrls: ['./coins.component.scss']
+  selector: 'app-assets',
+  templateUrl: './assets.component.html',
+  styleUrls: ['./assets.component.scss']
 })
-export class CoinsComponent implements OnInit, OnDestroy {
+export class AssetsComponent implements OnInit, OnDestroy {
 
   activeCoin;
   rates: Array<any> = [];
@@ -21,7 +21,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
   COIN_ICONS = 'COIN_ICONS';
 
   constructor(
-    private _coinService: CoinsService,
+    private _assetService: AssetsService,
     private _socketService: SocketService
   ) { 
     // this._socketService.connect();
@@ -66,7 +66,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
   }
 
   getAssets() {
-    this._coinService.getAssets()
+    this._assetService.getAssets()
       .subscribe(
         (response: any) => {
           this.assets = response;
@@ -78,7 +78,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
   }
 
   getRates(asset = 'BTC') {
-    this._coinService.getRates(asset)
+    this._assetService.getRates(asset)
       .subscribe(
         (response: any) => {
           const { asset_id_base, rates } = response;
@@ -90,7 +90,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
   }
 
   getAssetIcons() {
-    this._coinService.getAssetIcons()
+    this._assetService.getAssetIcons()
       .subscribe(
         (response: any) => {
           this.icons = response;
