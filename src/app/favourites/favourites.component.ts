@@ -21,7 +21,6 @@ export class FavouritesComponent implements OnInit {
   }
 
   onSelectfavourite(event: FavouriteItem) {
-    console.log('Delete favourite', event);
     this.store.dispatch(new DeleteFavouriteAction(event.asset_id));
   }
 

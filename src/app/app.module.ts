@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./app-routing.module";
+import { ToastNotificationsModule } from "ngx-toast-notifications";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from './app.component';
 import { AssetsComponent } from './assets/assets.component';
@@ -16,6 +18,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 
 import { AssetsService } from './assets/assets.service';
 import { InterceptorService } from './@shared/http/interceptor.service';
+import { ToastService } from './@shared/toast/toast.service';
 
 import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
 
@@ -43,12 +46,15 @@ const reducers = {
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+    ToastNotificationsModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     AssetsService,
     SocketService,
+    ToastService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

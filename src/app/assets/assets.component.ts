@@ -9,6 +9,7 @@ import { AppState } from '../@store/models/app-state.model';
 import { AssetItem } from '../@store/models/asset.model';
 import { FavouriteItem } from '../@store/models/favourites.model';
 import { AddFavouriteAction } from '../@store/actions/favourites.actions';
+import { ToastService } from '../@shared/toast/toast.service';
 
 @Component({
   selector: 'app-assets',
@@ -29,7 +30,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
   constructor(
     private _assetService: AssetsService,
     private _socketService: SocketService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private _toast: ToastService
   ) { 
     this.assets$ = this.store.select(store => store.asset);
     // this._socketService.connect();
@@ -117,7 +119,17 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   addFavouriteAsset(asset: FavouriteItem) {
-    this.store.dispatch(new AddFavouriteAction(asset));
+    const favourites$: Observable<Array<FavouriteItem>> = this.store.select(store => store.favourite);
+    favourites$.subscribe(favourites => {
+      const matchedAsset = favourites.some(
+        ({asset_id}) =>  asset_id === asset.asset_id
+      );
+      if (matchedAsset) {
+        this._toast.showInfo(`You have already selected ${asset.name} as a favourite`);
+      } else {
+        this.store.dispatch(new AddFavouriteAction(asset));
+      }
+    });
   }
 
   ngOnDestroy() {
