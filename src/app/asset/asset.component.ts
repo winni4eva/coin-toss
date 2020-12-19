@@ -8,7 +8,7 @@ import { FavouriteItem } from '../@store/models/favourites.model';
 })
 export class AssetComponent implements OnInit {
   
-  @Input() asset: any;
+  @Input() asset: FavouriteItem;
   @Output() selectedAsset: EventEmitter<FavouriteItem> = new EventEmitter();
 
   constructor() { }

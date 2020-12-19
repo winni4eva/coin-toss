@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AssetsComponent } from './assets/assets.component';
 import { AssetComponent } from './asset/asset.component';
 import { HeaderComponent } from './@shared/header/header/header.component';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 import { AssetsService } from './assets/assets.service';
 import { InterceptorService } from './@shared/http/interceptor.service';
@@ -18,6 +19,7 @@ import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
 
 import { AssetReducer } from './@store/reducers/asset.reducer';
 import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
+import { FavouriteComponent } from './favourite/favourite.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
     AssetsComponent,
     AssetComponent,
     HeaderComponent,
-    AssetIconPipe
+    AssetIconPipe,
+    FavouritesComponent,
+    FavouriteComponent
   ],
   imports: [
     BrowserModule,

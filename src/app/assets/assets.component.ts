@@ -113,7 +113,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   onAssetSelect(event) {
-    console.log('Select asset ', event);
     this.addFavouriteAsset(event);
   }
 
