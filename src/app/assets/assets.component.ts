@@ -10,6 +10,7 @@ import { AssetItem } from '../@store/models/asset.model';
 import { FavouriteItem } from '../@store/models/favourites.model';
 import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 import { ToastService } from '../@shared/toast/toast.service';
+import { LoadingAssetAction } from '../@store/actions/asset.actions';
 
 @Component({
   selector: 'app-assets',
@@ -18,14 +19,16 @@ import { ToastService } from '../@shared/toast/toast.service';
 })
 export class AssetsComponent implements OnInit, OnDestroy {
 
-  activeCoin;
-  rates: Array<any> = [];
+  //activeCoin;
+  //rates: Array<any> = [];
   assets$: Observable<Array<AssetItem>>;
-  icons: Array<any> = [];
-  coinChangesSubscription: any;
-  liveData$: any;
-  COIN_ASSETS = 'COIN_ASSETS';
-  COIN_ICONS = 'COIN_ICONS';
+  loading$: Observable<Boolean>;
+  error$: Observable<Error>
+  //icons: Array<any> = [];
+  //coinChangesSubscription: any;
+  //liveData$: any;
+  //COIN_ASSETS = 'COIN_ASSETS';
+  //COIN_ICONS = 'COIN_ICONS';
 
   constructor(
     private _assetService: AssetsService,
@@ -33,7 +36,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private _toast: ToastService
   ) { 
-    this.assets$ = this.store.select(store => store.asset);
+    //this.assets$ = this.store.select(store => store.asset);
     // this._socketService.connect();
     // this._socketService.sendMessage(
     //   {
@@ -60,58 +63,11 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // const icons = localStorage.getItem(this.COIN_ICONS);
-    // const assets = localStorage.getItem(this.COIN_ASSETS); 
-    // if (!icons) {
-    //   this.getAssetIcons();
-    // } else {
-    //   this.icons = JSON.parse(icons);
-    // }
+    this.assets$ = this.store.select(store => store.asset.list);
+    this.loading$ = this.store.select(store => store.asset.loading);
+    this.error$ = this.store.select(store => store.asset.error);
 
-    // if (!assets) {
-    //   this.getAssets();
-    // } else {
-    //   this.assets = JSON.parse(assets);
-    // }
-  }
-
-  getAssets() {
-    this._assetService.getAssets()
-      .subscribe(
-        (response: any) => {
-          //this.assets = response;
-          //localStorage.setItem(this.COIN_ASSETS, JSON.stringify(response.slice(0, 100)));
-          //this.getRates();
-        },
-        error => console.error(error)
-      );
-  }
-
-  getRates(asset = 'BTC') {
-    this._assetService.getRates(asset)
-      .subscribe(
-        (response: any) => {
-          const { asset_id_base, rates } = response;
-          this.activeCoin = asset_id_base;
-          this.rates = rates;
-        },
-        error => console.error(error)
-      );
-  }
-
-  getAssetIcons() {
-    this._assetService.getAssetIcons()
-      .subscribe(
-        (response: any) => {
-          this.icons = response;
-          localStorage.setItem(this.COIN_ICONS, JSON.stringify(response.slice(0, 100)));
-        },
-        error => console.error(error)
-      );
-  }
-
-  getAssetRates(asset) {
-    this.getRates(asset);
+    //this.store.dispatch(new LoadingAssetAction());
   }
 
   onAssetSelect(event) {
@@ -119,18 +75,46 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   addFavouriteAsset(asset: FavouriteItem) {
-    const favourites$: Observable<Array<FavouriteItem>> = this.store.select(store => store.favourite);
-    favourites$.subscribe(favourites => {
-      const matchedAsset = favourites.some(
-        ({asset_id}) =>  asset_id === asset.asset_id
-      );
-      if (matchedAsset) {
-        this._toast.showInfo(`You have already selected ${asset.name} as a favourite`);
-      } else {
+    //const favourites$: Observable<Array<FavouriteItem>> = this.store.select(store => store.favourite);
+    //favourites$.subscribe(favourites => {
+      //const matchedAsset = favourites.some(
+        //({asset_id}) =>  asset_id === asset.asset_id
+      //);
+      //if (matchedAsset) {
+        //this._toast.showInfo(`You have already selected ${asset.name} as a favourite`);
+      //} else {
         this.store.dispatch(new AddFavouriteAction(asset));
-      }
-    });
+        this._toast.showInfo(`${asset.name} has been added as a favourite`);
+      //}
+   // });
   }
+
+  // getRates(asset = 'BTC') {
+  //   this._assetService.getRates(asset)
+  //     .subscribe(
+  //       (response: any) => {
+  //         const { asset_id_base, rates } = response;
+  //         //this.activeCoin = asset_id_base;
+  //         //this.rates = rates;
+  //       },
+  //       error => console.error(error)
+  //     );
+  // }
+
+  // getAssetIcons() {
+  //   this._assetService.getAssetIcons()
+  //     .subscribe(
+  //       (response: any) => {
+  //         this.icons = response;
+  //         localStorage.setItem(this.COIN_ICONS, JSON.stringify(response.slice(0, 100)));
+  //       },
+  //       error => console.error(error)
+  //     );
+  // }
+
+  // getAssetRates(asset) {
+  //   this.getRates(asset);
+  // }
 
   ngOnDestroy() {
     // if (this.coinChangesSubscription) {

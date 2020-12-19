@@ -1,7 +1,7 @@
-import { AssetItem } from './asset.model';
+import { AssetState } from '../reducers/asset.reducer';
 import { FavouriteItem } from './favourites.model';
 
 export interface AppState {
-  readonly asset: Array<AssetItem>
+  readonly asset: AssetState
   readonly favourite: Array<FavouriteItem>
 }

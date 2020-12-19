@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { AssetItem } from '../@store/models/asset.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AssetsService {
   getAssets() {
     const endpoint = this.coinUrl + `/assets`;
 
-    return this._http.get(endpoint);
+    return this._http.get<Array<AssetItem>>(endpoint);
   }
 
   getAssetIcons(iconSize: number = 64) {

@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SocketService } from './@shared/socket/socket.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./app-routing.module";
@@ -19,6 +20,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { AssetsService } from './assets/assets.service';
 import { InterceptorService } from './@shared/http/interceptor.service';
 import { ToastService } from './@shared/toast/toast.service';
+import { AssetsEffects } from './@store/effects/asset.effects';
 
 import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
 
@@ -50,6 +52,7 @@ const reducers = {
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([AssetsEffects]),
   ],
   providers: [
     AssetsService,
