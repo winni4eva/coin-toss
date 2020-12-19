@@ -7,7 +7,7 @@
           : (assets | async)?.length }} asset{{((assets | async)?.length > 1) ? 's' : ''}}
       </span>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-        <app-asset *ngFor="let asset of assets | async" [asset]="asset"></app-asset>
+        <app-asset *ngFor="let asset of assets | async" [asset]="asset" (selectedAsset)="onAssetSelect($event)"></app-asset>
       </div>
       <div class="flex justify-center">
           <div class="flex rounded-md mt-8">

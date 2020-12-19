@@ -110,6 +110,10 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.getRates(asset);
   }
 
+  onAssetSelect(event) {
+    console.log('Select asset ', event);
+  }
+
   ngOnDestroy() {
     // if (this.coinChangesSubscription) {
     //   this.coinChangesSubscription.unsubscribe();

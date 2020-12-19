@@ -15,7 +15,9 @@ import { AssetsService } from './assets/assets.service';
 import { InterceptorService } from './@shared/http/interceptor.service';
 
 import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
+
 import { AssetReducer } from './@store/reducers/asset.reducer';
+import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
 
 
 @NgModule({
@@ -29,9 +31,10 @@ import { AssetReducer } from './@store/reducers/asset.reducer';
   imports: [
     BrowserModule,
     HttpClientModule,
-    //StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forRoot({
-      asset: AssetReducer
+      asset: AssetReducer,
+      favourite: FavouritesReducer,
     }),
   ],
   providers: [
@@ -42,12 +45,6 @@ import { AssetReducer } from './@store/reducers/asset.reducer';
       useClass: InterceptorService,
       multi: true,
     },
-    // { provide: InjectableRxStompConfig, useValue: myRxStompConfig },
-    // {
-    //   provide: RxStompService,
-    //   useFactory: rxStompServiceFactory,
-    //   deps: [InjectableRxStompConfig],
-    // },
   ],
   bootstrap: [AppComponent]
 })
