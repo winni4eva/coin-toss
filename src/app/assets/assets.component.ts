@@ -5,8 +5,10 @@ import { SocketService } from '../@shared/socket/socket.service';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AssetItem } from '../@store/models/asset.model';
 import { AppState } from '../@store/models/app-state.model';
+import { AssetItem } from '../@store/models/asset.model';
+import { FavouriteItem } from '../@store/models/favourites.model';
+import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 
 @Component({
   selector: 'app-assets',
@@ -17,7 +19,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
   activeCoin;
   rates: Array<any> = [];
-  assets: Observable<Array<AssetItem>>;
+  assets$: Observable<Array<AssetItem>>;
   icons: Array<any> = [];
   coinChangesSubscription: any;
   liveData$: any;
@@ -29,7 +31,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     private _socketService: SocketService,
     private store: Store<AppState>
   ) { 
-    this.assets = this.store.select(store => store.asset);
+    this.assets$ = this.store.select(store => store.asset);
     // this._socketService.connect();
     // this._socketService.sendMessage(
     //   {
@@ -75,8 +77,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this._assetService.getAssets()
       .subscribe(
         (response: any) => {
-          this.assets = response;
-          localStorage.setItem(this.COIN_ASSETS, JSON.stringify(response.slice(0, 100)));
+          //this.assets = response;
+          //localStorage.setItem(this.COIN_ASSETS, JSON.stringify(response.slice(0, 100)));
           //this.getRates();
         },
         error => console.error(error)
@@ -112,6 +114,11 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
   onAssetSelect(event) {
     console.log('Select asset ', event);
+    this.addFavouriteAsset(event);
+  }
+
+  addFavouriteAsset(asset: FavouriteItem) {
+    this.store.dispatch(new AddFavouriteAction(asset));
   }
 
   ngOnDestroy() {
