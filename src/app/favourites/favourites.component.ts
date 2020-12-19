@@ -20,8 +20,9 @@ export class FavouritesComponent implements OnInit {
     this.favourites$ = this.store.select(store => store.favourite);
   }
 
-  onSelectfavourite(event) {
+  onSelectfavourite(event: FavouriteItem) {
     console.log('Delete favourite', event);
+    this.store.dispatch(new DeleteFavouriteAction(event.asset_id));
   }
 
 }

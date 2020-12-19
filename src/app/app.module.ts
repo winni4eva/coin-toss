@@ -5,6 +5,8 @@ import { SocketService } from './@shared/socket/socket.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from './app.component';
 import { AssetsComponent } from './assets/assets.component';
@@ -21,6 +23,10 @@ import { AssetReducer } from './@store/reducers/asset.reducer';
 import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
 import { FavouriteComponent } from './favourite/favourite.component';
 
+const reducers = {
+  asset: AssetReducer,
+  favourite: FavouritesReducer,
+};
 
 @NgModule({
   declarations: [
@@ -35,11 +41,10 @@ import { FavouriteComponent } from './favourite/favourite.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    RouterModule,
+    AppRoutingModule,
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    StoreModule.forRoot({
-      asset: AssetReducer,
-      favourite: FavouritesReducer,
-    }),
   ],
   providers: [
     AssetsService,
