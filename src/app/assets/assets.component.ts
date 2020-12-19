@@ -67,7 +67,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.loading$ = this.store.select(store => store.asset.loading);
     this.error$ = this.store.select(store => store.asset.error);
 
-    //this.store.dispatch(new LoadingAssetAction());
+    this.store.dispatch(new LoadingAssetAction());
   }
 
   onAssetSelect(event) {

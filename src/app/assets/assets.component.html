@@ -1,23 +1,33 @@
 <div class="my-8">
   <div class="container mx-auto px-6">
       <h3 class="text-gray-700 text-2xl font-medium">Assets</h3>
-      <!-- <span class="mt-3 text-sm text-gray-500">
+      <span class="mt-3 text-sm text-gray-500" *ngIf="(assets$ | async)">
         {{(assets$ | async)?.length > 20 
           ? ((assets$ | async)?.length - 1) + '+'
           : (assets$ | async)?.length }} asset{{((assets$ | async)?.length > 1) ? 's' : ''}}
-      </span> -->
+      </span>
       <div 
         class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6"
         *ngIf="(assets$ | async); else noAssets">
-        <app-asset *ngFor="let asset of assets$ | async" [asset]="asset" (selectedAsset)="onAssetSelect($event)"></app-asset>
+        <ng-container *ngFor="let asset of assets$ | async; let i = index">
+          <app-asset [asset]="asset" (selectedAsset)="onAssetSelect($event)" *ngIf="i < 50">
+          </app-asset>
+        </ng-container>
       </div>
 
       <ng-template #noAssets>
-        <ul>
-          <li style="max-width:250px;margin:0 auto;">No assets found.</li>
-        </ul>
+        <h2 style="max-width:250px;margin:0 auto;">No assets found.</h2>
       </ng-template>
-      <div class="flex justify-center">
+
+      <ng-template *ngIf="(error$ | async)">
+        <h2>{{(error$ | async) | json}}</h2>
+      </ng-template>
+
+      <ng-template *ngIf="(loading$ | async)">
+        <h2>Loading assets...</h2>
+      </ng-template>
+
+      <!-- <div class="flex justify-center">
           <div class="flex rounded-md mt-8">
               <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
               <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>1</span></a>
@@ -25,6 +35,6 @@
               <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>3</span></a>
               <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"><span>Next</span></a>
           </div>
-      </div>
+      </div> -->
   </div>
 </div>

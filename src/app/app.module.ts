@@ -27,6 +27,7 @@ import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
 import { AssetReducer } from './@store/reducers/asset.reducer';
 import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
 import { FavouriteComponent } from './favourite/favourite.component';
+import { ExchangeComponent } from './exchange/exchange.component';
 
 const reducers = {
   asset: AssetReducer,
@@ -41,7 +42,8 @@ const reducers = {
     HeaderComponent,
     AssetIconPipe,
     FavouritesComponent,
-    FavouriteComponent
+    FavouriteComponent,
+    ExchangeComponent
   ],
   imports: [
     BrowserModule,
