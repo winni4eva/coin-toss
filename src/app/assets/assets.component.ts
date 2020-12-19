@@ -3,6 +3,10 @@ import { AssetsService } from './assets.service';
 import { environment } from '../../environments/environment';
 import { SocketService } from '../@shared/socket/socket.service';
 import { tap, map, catchError } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AssetItem } from '../@store/models/asset.model';
+import { AppState } from '../@store/models/app-state.model';
 
 @Component({
   selector: 'app-assets',
@@ -13,7 +17,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
   activeCoin;
   rates: Array<any> = [];
-  assets: Array<any> = [];
+  assets: Observable<Array<AssetItem>>;
   icons: Array<any> = [];
   coinChangesSubscription: any;
   liveData$: any;
@@ -22,8 +26,10 @@ export class AssetsComponent implements OnInit, OnDestroy {
 
   constructor(
     private _assetService: AssetsService,
-    private _socketService: SocketService
+    private _socketService: SocketService,
+    private store: Store<AppState>
   ) { 
+    this.assets = this.store.select(store => store.asset);
     // this._socketService.connect();
     // this._socketService.sendMessage(
     //   {
@@ -50,19 +56,19 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const icons = localStorage.getItem(this.COIN_ICONS);
-    const assets = localStorage.getItem(this.COIN_ASSETS); 
-    if (!icons) {
-      this.getAssetIcons();
-    } else {
-      this.icons = JSON.parse(icons);
-    }
+    // const icons = localStorage.getItem(this.COIN_ICONS);
+    // const assets = localStorage.getItem(this.COIN_ASSETS); 
+    // if (!icons) {
+    //   this.getAssetIcons();
+    // } else {
+    //   this.icons = JSON.parse(icons);
+    // }
 
-    if (!assets) {
-      this.getAssets();
-    } else {
-      this.assets = JSON.parse(assets);
-    }
+    // if (!assets) {
+    //   this.getAssets();
+    // } else {
+    //   this.assets = JSON.parse(assets);
+    // }
   }
 
   getAssets() {
