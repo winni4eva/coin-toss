@@ -8,8 +8,9 @@
       </span>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
         <span
-          class="border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent cursor-pointer">
-          <app-favourite *ngFor="let favourite of favourites$ | async" [favourite]="favourite" (selectedFavourite)="onSelectfavourite($event)">
+          class="border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent cursor-pointer"
+          *ngFor="let favourite of favourites$ | async">
+          <app-favourite [favourite]="favourite" (selectedFavourite)="onSelectfavourite($event)">
           </app-favourite>
         </span>
       </div>
