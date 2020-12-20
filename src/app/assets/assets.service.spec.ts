@@ -4,7 +4,7 @@ import { AssetsService } from './assets.service';
 import { AssetItem } from '../@store/models/asset.model';
 import { environment } from '../../environments/environment';
 
-fdescribe('AssetsService', () => {
+describe('AssetsService', () => {
   let service: AssetsService;
   let httpTestingController: HttpTestingController;
   const assets: Array<AssetItem> = [
