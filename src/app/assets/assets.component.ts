@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { State, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { AppState } from '../@store/models/app-state.model';
 import { AssetItem } from '../@store/models/asset.model';
@@ -8,6 +8,7 @@ import { FavouriteItem } from '../@store/models/favourites.model';
 import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 import { ToastService } from '../@shared/toast/toast.service';
 import { LoadingAssetAction } from '../@store/actions/asset.actions';
+import { take } from 'rxjs/operators';
 //import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
 
 @Component({
@@ -28,7 +29,8 @@ export class AssetsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private _toast: ToastService,
-    private _router: Router
+    private _router: Router,
+    private state: State<AppState>
   ) { }
 
   ngOnInit(): void {
@@ -66,8 +68,15 @@ export class AssetsComponent implements OnInit, OnDestroy {
   }
 
   addFavouriteAsset(asset: FavouriteItem) {
-    this.store.dispatch(new AddFavouriteAction(asset));
-    this._toast.showInfo(`${asset.name} has been added as a favourite`);
+    const filteredFavs = this.state.getValue()
+                          .favourite
+                          .filter(({asset_id}) => asset_id === asset.asset_id);
+    if (filteredFavs.length) {
+      this._toast.showWarning(`${asset.name} has already been selected as a favourite`)
+    } else {
+      this.store.dispatch(new AddFavouriteAction(asset));
+      this._toast.showInfo(`${asset.name} has been added as a favourite`);
+    }
   }
 
   ngOnDestroy() {
