@@ -15,11 +15,6 @@ const initialState: AssetState = {
 
 export function AssetReducer(state: AssetState = initialState, action: AssetAction) {
   switch (action.type) {
-    case AssetActionTypes.ADD_ASSET:
-      return {
-        ...state,
-        loading: true
-      };
     case AssetActionTypes.LOADING_ASSET:
       return {
         ...state,

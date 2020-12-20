@@ -1,20 +1,30 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../../../@store/models/app-state.model';
+import { AssetIconItem } from '../../../@store/models/asset-icon.model';
 
 @Pipe({
   name: 'assetIcon',
   pure: true
 })
 export class AssetIconPipe implements PipeTransform {
-  COIN_ICONS = 'COIN_ICONS';
+  
+  assetsIcons$: Observable<Array<AssetIconItem>>;
+  matchedIconUrl: string;
+
+  constructor(private store: Store<AppState>) {}
 
   transform(assetId: string, ...args: unknown[]): string {
-    const icons = JSON.parse(localStorage.getItem(this.COIN_ICONS)) || [];
-    const assetIcon = icons.filter(({asset_id}) => asset_id === assetId);
-
-    if (Array.isArray(assetIcon) && assetIcon.length === 1) {
-      return assetIcon[0]['url'];
-    }
-    return '../../../assets/default.jpg';
+    this.assetsIcons$ = this.store.select(store => store.assetIcon.list);
+    this.assetsIcons$.subscribe((response: Array<AssetIconItem>) => {
+      const assetIcon = response.filter(({asset_id}) => asset_id === assetId);
+      if (Array.isArray(assetIcon) && assetIcon.length === 1) {
+        this.matchedIconUrl = assetIcon[0]['url'];
+      }
+    });
+  
+    return this.matchedIconUrl || '../../../assets/default.jpg';
   }
 
 }

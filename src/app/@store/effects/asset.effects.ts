@@ -14,7 +14,7 @@ import { AssetActionTypes } from '../actions/asset.actions';
 @Injectable()
 export class AssetsEffects {
 
-  @Effect() loadShopping$ = this.actions$
+  @Effect() loadAssets$ = this.actions$
     .pipe(
       ofType<LoadingAssetAction>(AssetActionTypes.LOADING_ASSET),
       mergeMap(

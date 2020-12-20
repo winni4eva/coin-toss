@@ -3,6 +3,7 @@ import { AssetsService } from './assets.service';
 import { environment } from '../../environments/environment';
 import { SocketService } from '../@shared/socket/socket.service';
 import { tap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { AppState } from '../@store/models/app-state.model';
@@ -11,7 +12,7 @@ import { FavouriteItem } from '../@store/models/favourites.model';
 import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 import { ToastService } from '../@shared/toast/toast.service';
 import { LoadingAssetAction } from '../@store/actions/asset.actions';
-import { Router } from '@angular/router';
+import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
 
 @Component({
   selector: 'app-assets',
@@ -44,6 +45,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.loading$ = this.store.select(store => store.asset.loading);
     this.error$ = this.store.select(store => store.asset.error);
     this._toast.showInfo('Loading assets');
+    this.store.dispatch(new LoadingAssetIconAction());
     this.store.dispatch(new LoadingAssetAction());
     this.initialised = true;
   }
