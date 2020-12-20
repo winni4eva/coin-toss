@@ -9,6 +9,7 @@ import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 import { ToastService } from '../@shared/toast/toast.service';
 import { LoadingAssetAction } from '../@store/actions/asset.actions';
 import { take } from 'rxjs/operators';
+import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
 //import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
 
 @Component({
@@ -43,7 +44,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
     this.loading$ = this.store.select(store => store.asset.loading);
     this.error$ = this.store.select(store => store.asset.error);
     this._toast.showInfo('Loading assets');
-    //this.store.dispatch(new LoadingAssetIconAction());
+    this.store.dispatch(new LoadingAssetIconAction());
     this.store.dispatch(new LoadingAssetAction());
     this.initialised = true;
   }
