@@ -8,7 +8,7 @@ export const environment = {
   coinWssHost: 'wss://ws-sandbox.coinapi.io/v1',
   coinKey: '',
 };
-//F79CFF39-F765-4508-8D30-D998EFFAE554
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
