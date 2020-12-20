@@ -24,10 +24,18 @@ export class ExchangeComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.subscribeToFavourites();
+    this.initiateSocketConnection();
+  }
+
+  subscribeToFavourites() {
     this.favourites$ = this.store.select(store => store.favourite);
     this.favouritesSubscription = this.favourites$.subscribe((response: Array<FavouriteItem>) => {
       this.favourites = JSON.parse(JSON.stringify(response));
     });
+  }
+
+  initiateSocketConnection() {
     this._socketService.connect();
     const favouriteAssets = this.favourites.map(({asset_id}) => asset_id);
     this._socketService.sendMessage(
@@ -40,9 +48,8 @@ export class ExchangeComponent implements OnInit, OnDestroy {
       }
     );
     this._socketService.messages$.subscribe(
-      (msg: string) => { 
-        this.computeAssetExchanges(msg);
-      });
+      (msg: string) => this.computeAssetExchanges(msg)
+    );
   }
 
   computeAssetExchanges(msg: string) {
