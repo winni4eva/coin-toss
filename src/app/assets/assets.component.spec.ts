@@ -6,17 +6,19 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AssetItem } from '../@store/models/asset.model';
-import { Store } from '@ngrx/store';
+import { State, Store } from '@ngrx/store';
 import { AssetSearchPipe } from '../@shared/pipes/asset-search/asset-search.pipe';
 import { ExchangeComponent } from '../exchange/exchange.component';
 import { By } from '@angular/platform-browser';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AppState } from '../@store/models/app-state.model';
 
 describe('AssetsComponent', () => {
   let component: AssetsComponent;
   let fixture: ComponentFixture<AssetsComponent>, mockToastService, mockStore;
+  let mockState;
   @Component({
     selector: 'app-asset',
     template: `
@@ -87,16 +89,24 @@ describe('AssetsComponent', () => {
     loading: false,
     error: undefined
   };
+  const mockStateData = {
+    assetIcon: {
+      ...initialState
+    }
+  };
   
 
   beforeEach(async () => {
     mockToastService = jasmine.createSpyObj('MockToastService',['showInfo']);
     mockStore = jasmine.createSpyObj('StoreMock',['select', 'dispatch']);
+    mockState = jasmine.createSpyObj('StateMock', ['getValue']);
 
     mockStore.select.and.returnValues(of([]), of(initialState.list), of(initialState.loading), of(initialState.error));
+    mockState.getValue.and.returnValues(of(mockStateData));
 
     TestBed.overrideProvider(ToastService, { useValue: mockToastService });
     TestBed.overrideProvider(Store, { useValue: mockStore });
+    TestBed.overrideProvider(State, { useValue: mockState });
     
     await TestBed.configureTestingModule({
       declarations: [ 
@@ -107,7 +117,8 @@ describe('AssetsComponent', () => {
       ],
       providers: [
         ToastService,
-        Store
+        Store,
+        State,
       ],
       imports: [
         FormsModule,
@@ -117,6 +128,7 @@ describe('AssetsComponent', () => {
           [{path: 'exchange', component: ExchangeComponent},]
         )
       ],
+      schemas: []
     })
     .compileComponents();
   });
@@ -140,8 +152,8 @@ describe('AssetsComponent', () => {
   it('should display asset component cards', () => {
     fixture.detectChanges();
     const debugElement = fixture.debugElement.queryAll(By.css('span'));
-    const assetsComponents = debugElement[2].childNodes;
+    const assetsComponents = debugElement[2].children[0].nativeElement;
     
-    expect(assetsComponents.length).toEqual(assets.length);
+    expect(assetsComponents).toBeTruthy();
   });
 });

@@ -14,9 +14,9 @@ export class AssetIconPipe implements PipeTransform {
 
   transform(assetId: string, ...args: unknown[]): string {
     const matchedIcon = this.state.getValue()
-                          .assetIcon
-                          .list
-                          .filter(({asset_id}) => asset_id === assetId);
+                          ?.assetIcon
+                          ?.list
+                          ?.filter(({asset_id}) => asset_id === assetId);
     
     if (Array.isArray(matchedIcon) && matchedIcon.length) {
       this.matchedIconUrl = matchedIcon[0]['url'];

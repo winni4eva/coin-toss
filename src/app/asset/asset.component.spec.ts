@@ -4,10 +4,11 @@ import { AssetComponent } from './asset.component';
 import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
 import { AssetItem } from '../@store/models/asset.model';
 import { By } from '@angular/platform-browser';
+import { State } from '@ngrx/store';
 
 describe('AssetComponent', () => {
   let component: AssetComponent;
-  let fixture: ComponentFixture<AssetComponent>;
+  let fixture: ComponentFixture<AssetComponent>, mockState;
   const asset: AssetItem = {
     asset_id:"BTC",
     name:"Bitcoin",
@@ -39,6 +40,10 @@ describe('AssetComponent', () => {
   });
 
   beforeEach(() => {
+    mockState = jasmine.createSpyObj('StateMock', ['getValue']);
+
+    TestBed.overrideProvider(State, { useValue: mockState });
+
     fixture = TestBed.createComponent(AssetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -50,6 +55,6 @@ describe('AssetComponent', () => {
     fixture.detectChanges();
     const headerText = fixture.debugElement.query(By.css('h3.uppercase')).nativeElement.textContent;
     
-    expect(headerText).toBe(asset.name);
+    expect(headerText).toBe(` ${asset.name}`);
   });
 });

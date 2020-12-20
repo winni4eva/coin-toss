@@ -4,10 +4,11 @@ import { FavouriteComponent } from './favourite.component';
 import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
 import { FavouriteItem } from '../@store/models/favourites.model';
 import { By } from '@angular/platform-browser';
+import { State } from '@ngrx/store';
 
 describe('FavouriteComponent', () => {
   let component: FavouriteComponent;
-  let fixture: ComponentFixture<FavouriteComponent>;
+  let fixture: ComponentFixture<FavouriteComponent>, mockState;
   const favourite: FavouriteItem = {
     asset_id:"BTC",
     name:"Bitcoin",
@@ -39,6 +40,10 @@ describe('FavouriteComponent', () => {
   });
 
   beforeEach(() => {
+    mockState = jasmine.createSpyObj('StateMock', ['getValue']);
+
+    TestBed.overrideProvider(State, { useValue: mockState });
+    
     fixture = TestBed.createComponent(FavouriteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

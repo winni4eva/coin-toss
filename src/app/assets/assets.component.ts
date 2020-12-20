@@ -8,9 +8,7 @@ import { FavouriteItem } from '../@store/models/favourites.model';
 import { AddFavouriteAction } from '../@store/actions/favourites.actions';
 import { ToastService } from '../@shared/toast/toast.service';
 import { LoadingAssetAction } from '../@store/actions/asset.actions';
-import { take } from 'rxjs/operators';
 import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
-//import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
 
 @Component({
   selector: 'app-assets',
