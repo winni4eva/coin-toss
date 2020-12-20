@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class AssetIconPipe implements PipeTransform {
   COIN_ICONS = 'COIN_ICONS';
 
-  transform(assetId: string, ...args: unknown[]): unknown {
+  transform(assetId: string, ...args: unknown[]): string {
     const icons = JSON.parse(localStorage.getItem(this.COIN_ICONS)) || [];
     const assetIcon = icons.filter(({asset_id}) => asset_id === assetId);
 

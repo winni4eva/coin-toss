@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ToastNotificationsModule } from "ngx-toast-notifications";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { AssetsComponent } from './assets/assets.component';
@@ -23,7 +24,8 @@ import { InterceptorService } from './@shared/http/interceptor.service';
 import { ToastService } from './@shared/toast/toast.service';
 import { AssetsEffects } from './@store/effects/asset.effects';
 
-import { AssetIconPipe } from './@shared/pipes/asset-icon.pipe';
+import { AssetIconPipe } from './@shared/pipes/asset-icon/asset-icon.pipe';
+import { AssetSearchPipe } from './@shared/pipes/asset-search/asset-search.pipe';
 
 import { AssetReducer } from './@store/reducers/asset.reducer';
 import {  FavouritesReducer } from './@store/reducers/favourite.reducer';
@@ -44,7 +46,8 @@ const reducers = {
     AssetIconPipe,
     FavouritesComponent,
     FavouriteComponent,
-    ExchangeComponent
+    ExchangeComponent,
+    AssetSearchPipe,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,8 @@ const reducers = {
     ToastNotificationsModule,
     BrowserAnimationsModule,
     LoadingBarHttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AssetsEffects]),

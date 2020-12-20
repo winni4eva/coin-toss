@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SocketService } from '../@shared/socket/socket.service';
 import { AppState } from '../@store/models/app-state.model';
@@ -16,6 +16,7 @@ export class ExchangeComponent implements OnInit, OnDestroy {
   favourites = [];
   favourites$: Observable<Array<FavouriteItem>>;
   private matchCurrency = 'USD';
+  favouritesSubscription: Subscription;
 
   constructor(
     private _socketService: SocketService,
@@ -24,7 +25,7 @@ export class ExchangeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.favourites$ = this.store.select(store => store.favourite);
-    this.favourites$.subscribe((response: Array<FavouriteItem>) => {
+    this.favouritesSubscription = this.favourites$.subscribe((response: Array<FavouriteItem>) => {
       this.favourites = JSON.parse(JSON.stringify(response));
     });
     this._socketService.connect();
@@ -66,7 +67,7 @@ export class ExchangeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this._socketService.close();
+    this.favouritesSubscription.unsubscribe();
   }
 
 }
