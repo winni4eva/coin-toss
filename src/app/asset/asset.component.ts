@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
-import { FavouriteItem } from '../@store/models/favourites.model';
+import { AssetItem } from '../@store/models/asset.model';
 
 @Component({
   selector: 'app-asset',
@@ -8,8 +8,8 @@ import { FavouriteItem } from '../@store/models/favourites.model';
 })
 export class AssetComponent implements OnInit {
   
-  @Input() asset: FavouriteItem;
-  @Output() selectedAsset: EventEmitter<FavouriteItem> = new EventEmitter();
+  @Input() asset: AssetItem;
+  @Output() selectedAsset: EventEmitter<AssetItem> = new EventEmitter();
 
   constructor() { }
 
