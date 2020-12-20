@@ -33,8 +33,8 @@
         *ngIf="(assets$ | async); else noAssets">
         <span 
           class="border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent cursor-pointer"
-          *ngFor="let asset of (assets$ | async) | assetSearch: search; let i = index">
-          <app-asset [asset]="asset" (selectedAsset)="onAssetSelect($event)" *ngIf="i < 8">
+          *ngFor="let asset of ((assets$ | async) | assetSearch: search) | slice:0:8 ; let i = index">
+          <app-asset [asset]="asset" (selectedAsset)="onAssetSelect($event)">
           </app-asset>
         </span>
       </div>

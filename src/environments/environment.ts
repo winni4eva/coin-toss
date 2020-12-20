@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   coinRestHost: 'https://rest-sandbox.coinapi.io/v1',
   coinWssHost: 'wss://ws-sandbox.coinapi.io/v1',
-  coinKey: '',
+  coinKey: 'F79CFF39-F765-4508-8D30-D998EFFAE554',
 };
 
 /*
