@@ -31,8 +31,10 @@
       <div 
         class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6"
         *ngIf="(assets$ | async); else noAssets">
-        <span *ngFor="let asset of (assets$ | async) | assetSearch: search; let i = index">
-          <app-asset [asset]="asset" (selectedAsset)="onAssetSelect($event)" *ngIf="i < 50">
+        <span 
+          class="border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent cursor-pointer"
+          *ngFor="let asset of (assets$ | async) | assetSearch: search; let i = index">
+          <app-asset [asset]="asset" (selectedAsset)="onAssetSelect($event)" *ngIf="i < 8">
           </app-asset>
         </span>
       </div>

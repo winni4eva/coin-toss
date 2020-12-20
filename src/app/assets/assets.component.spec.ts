@@ -1,7 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { cold } from 'jasmine-marbles';
 import { AssetState } from '../@store/reducers/asset.reducer';
 import { AssetsComponent } from './assets.component';
 import { ToastService } from '../@shared/toast/toast.service';
@@ -15,8 +12,9 @@ import { ExchangeComponent } from '../exchange/exchange.component';
 import { By } from '@angular/platform-browser';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-fdescribe('AssetsComponent', () => {
+describe('AssetsComponent', () => {
   let component: AssetsComponent;
   let fixture: ComponentFixture<AssetsComponent>, mockToastService, mockStore;
   @Component({
@@ -112,6 +110,8 @@ fdescribe('AssetsComponent', () => {
         Store
       ],
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(
           [{path: 'exchange', component: ExchangeComponent},]
@@ -124,16 +124,24 @@ fdescribe('AssetsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AssetsComponent);
     component = fixture.componentInstance;
+    component.initialised = true;
     fixture.detectChanges();
   });
 
   it('should display count of assets', () => {
-    component.initialised = true;
     fixture.detectChanges();
     const debugElement = fixture.debugElement.queryAll(By.css('span'));
     const spanText = debugElement[1].nativeElement.textContent;
     
     expect(spanText).toEqual(` ${assets.length} assets `);
     expect(mockStore.select).toHaveBeenCalledTimes(4);
+  });
+
+  it('should display asset component cards', () => {
+    fixture.detectChanges();
+    const debugElement = fixture.debugElement.queryAll(By.css('span'));
+    const assetsComponents = debugElement[2].childNodes;
+    
+    expect(assetsComponents.length).toEqual(assets.length);
   });
 });
