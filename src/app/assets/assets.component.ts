@@ -19,54 +19,20 @@ import { LoadingAssetAction } from '../@store/actions/asset.actions';
 })
 export class AssetsComponent implements OnInit, OnDestroy {
 
-  //activeCoin;
-  //rates: Array<any> = [];
   assets$: Observable<Array<AssetItem>>;
   loading$: Observable<Boolean>;
-  error$: Observable<Error>
-  //icons: Array<any> = [];
-  //coinChangesSubscription: any;
-  //liveData$: any;
-  //COIN_ASSETS = 'COIN_ASSETS';
-  //COIN_ICONS = 'COIN_ICONS';
+  error$: Observable<Error>;
 
   constructor(
-    private _assetService: AssetsService,
-    private _socketService: SocketService,
     private store: Store<AppState>,
     private _toast: ToastService
-  ) { 
-    //this.assets$ = this.store.select(store => store.asset);
-    // this._socketService.connect();
-    // this._socketService.sendMessage(
-    //   {
-    //     "type": "hello",
-    //     "apikey": environment.coinKey,
-    //     "heartbeat": false,
-    //     "subscribe_data_type": ["trade"],
-    //     "subscribe_filter_symbol_id": [
-    //       "BITSTAMP_SPOT_BTC_USD$",
-    //       "BITFINEX_SPOT_BTC_LTC$",
-    //       "COINBASE_",
-    //       "ITBIT_"
-    //       ]
-    //   }
-    // );
-    // this.liveData$ = this._socketService.messages$.pipe(
-    //   map(rows => console.log('Socket Data', rows)),
-    //   catchError(error => { throw error }),
-    //   tap({
-    //     error: error => console.log('[Coin Socket] Error:', error),
-    //     complete: () => console.log('[Coin Socket] Connection Closed')
-    //   })
-    // );
-  }
+  ) { }
 
   ngOnInit(): void {
     this.assets$ = this.store.select(store => store.asset.list);
     this.loading$ = this.store.select(store => store.asset.loading);
     this.error$ = this.store.select(store => store.asset.error);
-
+    this._toast.showInfo('Loading assets');
     this.store.dispatch(new LoadingAssetAction());
   }
 
@@ -89,18 +55,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
    // });
   }
 
-  // getRates(asset = 'BTC') {
-  //   this._assetService.getRates(asset)
-  //     .subscribe(
-  //       (response: any) => {
-  //         const { asset_id_base, rates } = response;
-  //         //this.activeCoin = asset_id_base;
-  //         //this.rates = rates;
-  //       },
-  //       error => console.error(error)
-  //     );
-  // }
-
   // getAssetIcons() {
   //   this._assetService.getAssetIcons()
   //     .subscribe(
@@ -116,10 +70,6 @@ export class AssetsComponent implements OnInit, OnDestroy {
   //   this.getRates(asset);
   // }
 
-  ngOnDestroy() {
-    // if (this.coinChangesSubscription) {
-    //   this.coinChangesSubscription.unsubscribe();
-    // }
-  }
+  ngOnDestroy() {}
 
 }

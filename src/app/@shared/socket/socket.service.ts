@@ -12,18 +12,18 @@ export class SocketService {
 
   private socket$: WebSocketSubject<any>;
   private messagesSubject$ = new Subject();
-  public messages$ = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
+  public messages$ = this.messagesSubject$.asObservable();
 
   constructor() { }
 
   public connect(): void {
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = this.getNewWebSocket();
-      const messages = this.socket$.pipe(
-        tap({
-          error: error => console.log(error),
-        }), catchError(_ => EMPTY));
-      this.messagesSubject$.next(messages);
+      // const messages = this.socket$.pipe(
+      //   tap({
+      //     error: error => console.log(error),
+      //   }), catchError(_ => EMPTY));
+      // this.messagesSubject$.next(messages);
     }
   }
  
@@ -35,10 +35,11 @@ export class SocketService {
       }
     );
     subject.subscribe(
-        (msg) => console.log('message received: ' + JSON.stringify(msg)),
-        (err) => console.log(err),
-        () => console.log('WSS','Closing Connection')
-      );
+      //(msg) => console.log('message received: ' + JSON.stringify(msg) ),
+      (msg) => this.messagesSubject$.next(JSON.stringify(msg)),
+      (err) => console.log(err),
+      () => console.log('WSS','Closing Connection')
+    );
     return subject;
   }
 
