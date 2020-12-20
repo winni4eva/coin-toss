@@ -13,18 +13,18 @@ export class AssetIconPipe implements PipeTransform {
   assetsIcons$: Observable<Array<AssetIconItem>>;
   matchedIconUrl: string;
 
-  constructor(private store: Store<AppState>) {
-    this.assetsIcons$ = this.store.select(store => store.assetIcon.list);
-  }
+  //constructor(private store: Store<AppState>) {
+    //this.assetsIcons$ = this.store.select(store => store.assetIcon.list);
+  //}
 
   transform(assetId: string, ...args: unknown[]): string {
     
-    this.assetsIcons$.subscribe((response: Array<AssetIconItem>) => {
-      const assetIcon = response.filter(({asset_id}) => asset_id === assetId);
-      if (Array.isArray(assetIcon) && assetIcon.length === 1) {
-        this.matchedIconUrl = assetIcon[0]['url'];
-      }
-    });
+    // this.assetsIcons$.subscribe((response: Array<AssetIconItem>) => {
+    //   const assetIcon = response.filter(({asset_id}) => asset_id === assetId);
+    //   if (Array.isArray(assetIcon) && assetIcon.length === 1) {
+    //     this.matchedIconUrl = assetIcon[0]['url'];
+    //   }
+    // });
   
     return this.matchedIconUrl || '../../../assets/default.jpg';
   }
