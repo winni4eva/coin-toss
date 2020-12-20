@@ -12,12 +12,6 @@ export class AssetsService {
 
   constructor(private _http: HttpClient) { }
 
-  getRates(coin = 'BTC') {
-    const endpoint = this.coinUrl + `/exchangerate/${coin}?invert=false`;
-
-    return this._http.get(endpoint);
-  }
-
   getAssets() {
     const endpoint = this.coinUrl + `/assets`;
 
