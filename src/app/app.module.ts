@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./app-routing.module";
 import { ToastNotificationsModule } from "ngx-toast-notifications";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 
 import { AppComponent } from './app.component';
 import { AssetsComponent } from './assets/assets.component';
@@ -52,6 +53,7 @@ const reducers = {
     AppRoutingModule,
     ToastNotificationsModule,
     BrowserAnimationsModule,
+    LoadingBarHttpClientModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AssetsEffects]),
