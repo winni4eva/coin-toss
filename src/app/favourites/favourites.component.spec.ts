@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/internal/observable/of';
 import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
 import { AssetItem } from '../@store/models/asset.model';
+import { FavouriteItem } from '../@store/models/favourites.model';
 import { AssetState } from '../@store/reducers/asset.reducer';
 import { FavouritesComponent } from './favourites.component';
 
-fdescribe('FavouritesComponent', () => {
+describe('FavouritesComponent', () => {
   let component: FavouritesComponent;
   let fixture: ComponentFixture<FavouritesComponent>, mockStore;
   @Component({
@@ -32,9 +33,12 @@ fdescribe('FavouritesComponent', () => {
       </div>
     `
   })
-  class FakeFavouriteComponent {}
+  class FakeFavouriteComponent {
+    @Input() favourite: FavouriteItem;
+    @Output() selectedFavourite: EventEmitter<FavouriteItem> = new EventEmitter();
+  }
 
-  const assets: Array<AssetItem> = [
+  const favourites: Array<AssetItem> = [
     {
       asset_id:"BTC",
       name:"Bitcoin",
@@ -75,7 +79,7 @@ fdescribe('FavouritesComponent', () => {
     },
   ];
   const initialState: AssetState = {
-    list: assets,
+    list: favourites,
     loading: false,
     error: undefined
   };
@@ -107,7 +111,15 @@ fdescribe('FavouritesComponent', () => {
     const debugElement = fixture.debugElement.queryAll(By.css('span'));
     const spanText = debugElement[0].nativeElement.textContent;
     
-    expect(spanText).toEqual(` ${assets.length} favourites `);
+    expect(spanText).toEqual(` ${favourites.length} favourites `);
     expect(mockStore.select).toHaveBeenCalledTimes(1);
+  });
+
+  it('should display favourite component cards', () => {
+    fixture.detectChanges();
+    const debugElement = fixture.debugElement.query(By.css('span.cursor-pointer'));
+    const favouriteComponents = debugElement.nativeElement.children;
+    
+    expect(favouriteComponents.length).toEqual(favourites.length);
   });
 });
