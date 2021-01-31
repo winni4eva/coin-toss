@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SocketService } from '../@shared/socket/socket.service';
-import { AppState } from '../@store/models/app-state.model';
-import { FavouriteItem } from '../@store/models/favourites.model';
+import { SocketService } from '../../@shared/socket/socket.service';
+import { AppState } from '../../@store/models/app-state.model';
+import { FavouriteItem } from '../../@store/models/favourites.model';
 
 @Component({
   selector: 'app-exchange',

@@ -8,7 +8,7 @@ import {
   LoadingAssetErrorAction 
 } from '../actions/asset.actions'
 import { of } from 'rxjs';
-import { AssetsService } from '../../assets/assets.service';
+import { AssetsService } from '../../stock/assets/assets.service';
 import { AssetActionTypes } from '../actions/asset.actions';
 
 @Injectable()

@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssetComponent } from './asset.component';
-import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
-import { AssetItem } from '../@store/models/asset.model';
+import { FavouriteComponent } from './favourite.component';
+import { AssetIconPipe } from '../../@shared/pipes/asset-icon/asset-icon.pipe';
+import { FavouriteItem } from '../../@store/models/favourites.model';
 import { By } from '@angular/platform-browser';
 import { State } from '@ngrx/store';
 
-describe('AssetComponent', () => {
-  let component: AssetComponent;
-  let fixture: ComponentFixture<AssetComponent>, mockState;
-  const asset: AssetItem = {
+describe('FavouriteComponent', () => {
+  let component: FavouriteComponent;
+  let fixture: ComponentFixture<FavouriteComponent>, mockState;
+  const favourite: FavouriteItem = {
     asset_id:"BTC",
     name:"Bitcoin",
     type_is_crypto:1,
@@ -32,7 +32,7 @@ describe('AssetComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ 
-        AssetComponent,
+        FavouriteComponent, 
         AssetIconPipe
       ]
     })
@@ -43,18 +43,18 @@ describe('AssetComponent', () => {
     mockState = jasmine.createSpyObj('StateMock', ['getValue']);
 
     TestBed.overrideProvider(State, { useValue: mockState });
-
-    fixture = TestBed.createComponent(AssetComponent);
+    
+    fixture = TestBed.createComponent(FavouriteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should display an asset name', () => {
-    component.asset = asset;
+  it('should display favourite name', () => {
+    component.favourite = favourite;
 
     fixture.detectChanges();
     const headerText = fixture.debugElement.query(By.css('h3.uppercase')).nativeElement.textContent;
     
-    expect(headerText).toBe(` ${asset.name}`);
+    expect(headerText).toBe(favourite.name);
   });
 });

@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AssetsService } from './assets.service';
-import { AssetItem } from '../@store/models/asset.model';
-import { environment } from '../../environments/environment';
+import { AssetItem } from '../../@store/models/asset.model';
+import { environment } from '../../../environments/environment';
 
 describe('AssetsService', () => {
   let service: AssetsService;

@@ -14,14 +14,9 @@ import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { AssetsComponent } from './assets/assets.component';
-import { AssetComponent } from './asset/asset.component';
 import { HeaderComponent } from './@shared/header/header/header.component';
-import { FavouritesComponent } from './favourites/favourites.component';
-import { ExchangeComponent } from './exchange/exchange.component';
-import { FavouriteComponent } from './favourite/favourite.component';
 
-import { AssetsService } from './assets/assets.service';
+import { AssetsService } from './stock/assets/assets.service';
 import { InterceptorService } from './@shared/http/interceptor.service';
 import { ToastService } from './@shared/toast/toast.service';
 import { AssetsEffects } from './@store/effects/asset.effects';
@@ -47,25 +42,18 @@ const effects = [
 @NgModule({
   declarations: [
     AppComponent,
-    AssetsComponent,
-    AssetComponent,
-    HeaderComponent,
-    AssetIconPipe,
-    FavouritesComponent,
-    FavouriteComponent,
-    ExchangeComponent,
-    AssetSearchPipe,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+    //FormsModule,
+    ReactiveFormsModule,
     ToastNotificationsModule,
     BrowserAnimationsModule,
     LoadingBarHttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot(effects),

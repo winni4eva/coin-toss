@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
-import { AssetItem } from '../@store/models/asset.model';
+import { AssetItem } from '../../@store/models/asset.model';
 
 @Component({
   selector: 'app-asset',

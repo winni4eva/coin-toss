@@ -8,9 +8,9 @@ import {
   LoadingAssetIconErrorAction 
 } from '../actions/asset-icons.actions'
 import { of } from 'rxjs';
-import { AssetsService } from '../../assets/assets.service';
 import { AssetIconActionTypes } from '../actions/asset-icons.actions';
 import { AssetIconItem } from '../models/asset-icon.model';
+import { AssetsService } from 'src/app/stock/assets/assets.service';
 
 @Injectable()
 export class AssetIconEffects {

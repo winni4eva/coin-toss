@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { ExchangeComponent } from './exchange.component';
-import { FavouriteItem } from '../@store/models/favourites.model';
+import { FavouriteItem } from '../../@store/models/favourites.model';
 import { of } from 'rxjs/internal/observable/of';
 import { By } from '@angular/platform-browser';
 

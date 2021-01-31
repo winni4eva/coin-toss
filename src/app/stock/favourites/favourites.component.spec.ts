@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { State, Store } from '@ngrx/store';
 import { of } from 'rxjs/internal/observable/of';
-import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
-import { AssetItem } from '../@store/models/asset.model';
-import { FavouriteItem } from '../@store/models/favourites.model';
-import { AssetState } from '../@store/reducers/asset.reducer';
+import { AssetIconPipe } from '../../@shared/pipes/asset-icon/asset-icon.pipe';
+import { AssetItem } from '../../@store/models/asset.model';
+import { FavouriteItem } from '../../@store/models/favourites.model';
+import { AssetState } from '../../@store/reducers/asset.reducer';
 import { FavouritesComponent } from './favourites.component';
 
 describe('FavouritesComponent', () => {

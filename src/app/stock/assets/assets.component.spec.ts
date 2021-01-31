@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AssetState } from '../@store/reducers/asset.reducer';
+import { AssetState } from '../../@store/reducers/asset.reducer';
 import { AssetsComponent } from './assets.component';
-import { ToastService } from '../@shared/toast/toast.service';
+import { ToastService } from '../../@shared/toast/toast.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AssetItem } from '../@store/models/asset.model';
+import { AssetItem } from '../../@store/models/asset.model';
 import { State, Store } from '@ngrx/store';
-import { AssetSearchPipe } from '../@shared/pipes/asset-search/asset-search.pipe';
+import { AssetSearchPipe } from '../../@shared/pipes/asset-search/asset-search.pipe';
 import { ExchangeComponent } from '../exchange/exchange.component';
 import { By } from '@angular/platform-browser';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AssetIconPipe } from '../@shared/pipes/asset-icon/asset-icon.pipe';
+import { AssetIconPipe } from '../../@shared/pipes/asset-icon/asset-icon.pipe';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AppState } from '../@store/models/app-state.model';
+import { AppState } from '../../@store/models/app-state.model';
 
 describe('AssetsComponent', () => {
   let component: AssetsComponent;

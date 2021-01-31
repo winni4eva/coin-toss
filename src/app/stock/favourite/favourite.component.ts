@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { FavouriteItem } from '../@store/models/favourites.model';
+import { FavouriteItem } from '../../@store/models/favourites.model';
 
 @Component({
   selector: 'app-favourite',

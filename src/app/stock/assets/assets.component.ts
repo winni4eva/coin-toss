@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { AppState } from '../@store/models/app-state.model';
-import { AssetItem } from '../@store/models/asset.model';
-import { FavouriteItem } from '../@store/models/favourites.model';
-import { AddFavouriteAction } from '../@store/actions/favourites.actions';
-import { ToastService } from '../@shared/toast/toast.service';
-import { LoadingAssetAction } from '../@store/actions/asset.actions';
-import { LoadingAssetIconAction } from '../@store/actions/asset-icons.actions';
+import { AppState } from '../../@store/models/app-state.model';
+import { AssetItem } from '../../@store/models/asset.model';
+import { FavouriteItem } from '../../@store/models/favourites.model';
+import { AddFavouriteAction } from '../../@store/actions/favourites.actions';
+import { ToastService } from '../../@shared/toast/toast.service';
+import { LoadingAssetAction } from '../../@store/actions/asset.actions';
+import { LoadingAssetIconAction } from '../../@store/actions/asset-icons.actions';
 
 @Component({
   selector: 'app-assets',
